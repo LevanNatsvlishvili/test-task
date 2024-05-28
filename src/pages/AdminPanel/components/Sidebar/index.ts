@@ -1,1 +1,1 @@
-export { default } from './AdminPanel.svg';
+export { default } from './Sidebar';
