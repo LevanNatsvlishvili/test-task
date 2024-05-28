@@ -1,0 +1,33 @@
+* {
+  margin: 0;
+  padding: 0;
+  outline: none;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+a {
+  cursor: pointer;
+}
+
+body {
+  background: #f9fafa;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  box-shadow: 2px 2px 13px -1px #d1d5d6;
+  background-color: #d1d5d6;
+  margin-right: 100px;
+}

@@ -1,0 +1,7 @@
+@import './reset';
+@import './base/base';
+@import './base/tailwind';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

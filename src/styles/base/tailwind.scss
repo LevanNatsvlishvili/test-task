@@ -1,0 +1,7 @@
+@tailwind base;
+
+@layer base {
+  .center {
+    @apply flex justify-center items-center;
+  }
+}
