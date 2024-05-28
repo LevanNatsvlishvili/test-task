@@ -17,12 +17,19 @@ interface CurrentTab {
   children?: string[];
 }
 
-const AdminPanel = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+interface SidebarProps {
+  children: React.ReactNode;
+  isSidebarOpen: boolean;
+  setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  flip: () => void;
+}
+
+const Sidebar = ({ children, isSidebarOpen, setIsSidebarOpen, flip }: SidebarProps) => {
   const [currentTab, setCurrentTab] = useState<CurrentTab | null>(null);
 
   const handleTabClick = (tab: CurrentTab) => {
     setCurrentTab(tab);
+    flip();
     if (!isSidebarOpen) {
       setIsSidebarOpen((p) => !p);
       return;
@@ -35,7 +42,7 @@ const AdminPanel = () => {
 
   return (
     <div className="h-100vh flex bg-white">
-      <div
+      <nav
         className={clsx(
           'w-fill h-full border-r border-r-1 border-sidebarBorder flex overflow-hidden transition-all duration-300 ease-in-out',
           isSidebarOpen ? `max-w-286` : `max-w-72`
@@ -71,7 +78,7 @@ const AdminPanel = () => {
           </div>
 
           <div className="p-24 ">
-            <p className="font-600 text-14 leading-20 text-black mb-32">{currentTab?.title}</p>
+            <p className="font-600 text-14 leading-20 text-lightBlack mb-32">{currentTab?.title}</p>
             <div className="space-y-16">
               {currentTab?.children?.map((childTab, index) => (
                 <p
@@ -94,28 +101,31 @@ const AdminPanel = () => {
             </div>
           </div>
         </div>
-      </div>
-      <div className="h-80 w-full flex items-center border-b border-sidebarBorder px-24">
-        <div className="w-fit flex flex-grow items-center">
-          <InlineSVG src={Search} />
-          <input
-            className="w-full ml-16 placeholder-rukh text-rukh text-14 leading-18 tracking-[0.2px]"
-            placeholder="Search for the desired information"
-          />
-        </div>
-        <div className="ml-auto text-right flex items-center">
-          <div>
-            <p className="text-[#130F26] text-14 font-500 leading-21">Alex Kognitiv</p>
-            <p className="text-[#878EA2] text-14 font-500 leading-21">Alexkognitiv@gmail.com</p>
+      </nav>
+      <div className="w-full ">
+        <div className="h-80 w-full flex items-center border-b border-sidebarBorder px-24">
+          <div className="w-fit flex flex-grow items-center">
+            <InlineSVG src={Search} />
+            <input
+              className="w-full ml-16 placeholder-rukh text-rukh text-14 leading-18 tracking-[0.2px]"
+              placeholder="Search for the desired information"
+            />
           </div>
-          <img className="ml-8 " src="/images/home/profile-picture.png" />
+          <div className="ml-auto text-right flex items-center">
+            <div>
+              <p className="text-[#130F26] text-14 font-500 leading-21">Alex Kognitiv</p>
+              <p className="text-[#878EA2] text-14 font-500 leading-21">Alexkognitiv@gmail.com</p>
+            </div>
+            <img className="ml-8 " src="/images/home/profile-picture.png" />
+          </div>
         </div>
+        <main className="p-24">{children}</main>
       </div>
     </div>
   );
 };
 
-export default AdminPanel;
+export default Sidebar;
 
 const NavTabs = [
   {
