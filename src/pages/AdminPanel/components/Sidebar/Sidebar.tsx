@@ -29,13 +29,15 @@ const Sidebar = ({ children, isSidebarOpen, setIsSidebarOpen, flip }: SidebarPro
 
   const handleTabClick = (tab: CurrentTab) => {
     setCurrentTab(tab);
-    flip();
+
     if (!isSidebarOpen) {
       setIsSidebarOpen((p) => !p);
+      flip();
       return;
     }
     if (isSidebarOpen && tab === currentTab) {
       setIsSidebarOpen((p) => !p);
+      flip();
       setCurrentTab(null);
     }
   };
