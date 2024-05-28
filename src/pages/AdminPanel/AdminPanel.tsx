@@ -4,10 +4,7 @@ const AdminPanel = () => {
   return (
     <div className="h-100vh">
       <Sidebar />
-      <main className="">
-        <div className="topbar"></div>
-        <div className="content"></div>
-      </main>
+      <main className="">123</main>
     </div>
   );
 };

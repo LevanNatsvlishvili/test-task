@@ -37,8 +37,8 @@ const AdminPanel = () => {
     <div className="h-100vh flex bg-white">
       <div
         className={clsx(
-          'h-full border-r border-r-1 border-sidebarBorder flex overflow-hidden transition-all duration-300 ease-in-out',
-          isSidebarOpen ? `max-w-356` : `max-w-72`
+          'w-fill h-full border-r border-r-1 border-sidebarBorder flex overflow-hidden transition-all duration-300 ease-in-out',
+          isSidebarOpen ? `max-w-286` : `max-w-72`
         )}
       >
         <div className="h-full w-72 border-r border-r-1 border-sidebarBorder relative">
@@ -65,7 +65,7 @@ const AdminPanel = () => {
           </div>
         </div>
 
-        <div className="h-full min-w-286 relative bg-sidebarOpen">
+        <div className="h-full min-w-212 relative bg-sidebarOpen">
           <div className="h-80 p-24 border-b border-sidebarBorder">
             <InlineSVG src={LogoText} />
           </div>
