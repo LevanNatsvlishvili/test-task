@@ -1,6 +1,7 @@
 import { Customization, CustomizationActive } from '@/assets/icons/Customization';
 import Dashboard from '@/assets/icons/Dashboard';
 import Gallery from '@/assets/icons/Gallery';
+import { Info } from '@/assets/icons/Info';
 import { LogoText, Logo } from '@/assets/icons/Logo';
 import { Profile, ProfileActive } from '@/assets/icons/Profile';
 import Settings from '@/assets/icons/Settings';
@@ -39,7 +40,7 @@ const AdminPanel = () => {
           isSidebarOpen ? `max-w-284` : `max-w-72`
         )}
       >
-        <div className="h-full w-72 border-r border-r-1 border-sidebarBorder">
+        <div className="h-full w-72 border-r border-r-1 border-sidebarBorder relative">
           <div className="h-80 center">
             <InlineSVG src={Logo} />
           </div>
@@ -51,9 +52,18 @@ const AdminPanel = () => {
               </div>
             ))}
           </div>
+          <div className="absolute left-0 bottom-0 w-full">
+            <div className="w-full p-24 mb-24">
+              <InlineSVG src={Info} />
+            </div>
+
+            <div className="w-full p-24 ">
+              <p className="text-14 leading-20 tracking-[0.2px] font-600 text-[#C7C8CA]">1.01</p>
+            </div>
+          </div>
         </div>
 
-        <div className="h-full min-w-284">
+        <div className="h-full min-w-212 relative bg-sidebarOpen">
           <div className="h-80 p-24 ">
             <InlineSVG src={LogoText} />
           </div>
@@ -69,6 +79,16 @@ const AdminPanel = () => {
                   {childTab}
                 </p>
               ))}
+            </div>
+          </div>
+
+          <div className="absolute left-0 bottom-0 w-full">
+            <div className="w-full p-24 mb-24">
+              <p className="text-14 leading-20 tracking-[0.2px] font-600 text-[#A6A7AC]">Help Started</p>
+            </div>
+
+            <div className="w-full p-24 border-t border-sidebarBorder ">
+              <p className="text-14 leading-20 tracking-[0.2px] font-600 text-[#A6A7AC]">Version . 1.00.0.2</p>
             </div>
           </div>
         </div>
