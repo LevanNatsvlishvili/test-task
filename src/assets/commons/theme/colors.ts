@@ -6,6 +6,7 @@ const colors = {
   sidebarBorder: '#E1E1E3',
   sidebarOpen: '#F9FAFC',
   gray: '#75777E',
+  rukh: '#A6A7AC',
   black: '#151824',
 };
 
