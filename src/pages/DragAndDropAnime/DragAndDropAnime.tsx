@@ -22,26 +22,23 @@ const ImagePlane = ({ texture, position }) => {
   }, [texture]);
 
   return (
-    <mesh position={[position.x, position.y, 0]} ref={ref}>
-      <planeGeometry args={[70, 60]} />
+    <mesh position={position} ref={ref}>
+      <planeGeometry args={[60, 50]} />
       <meshBasicMaterial map={texture} transparent />
     </mesh>
   );
 };
 
 const boxes = [
-  { texturePath: '/images/products/product-1.png', title: 'Blue', bgColor: '#f15945', positionY: 6, positionX: -20 },
-  { texturePath: '/images/products/product-2.png', title: 'Grey', bgColor: '#571ec1', positionY: 0, positionX: 0 },
-  { texturePath: '/images/products/product-3.png', title: 'Pink', bgColor: '#F2C649', positionY: -6, positionX: 20 },
+  { texturePath: '/images/products/product-1.png', title: 'Blue', bgColor: '#f15945', position: [-23, 5, -10] },
+  { texturePath: '/images/products/product-2.png', title: 'Grey', bgColor: '#571ec1', position: [0, 0, 0] },
+  { texturePath: '/images/products/product-3.png', title: 'Pink', bgColor: '#F2C649', position: [18, -5, 10] },
 ];
 
 const DragAndDropAnime = () => {
   const textures = boxes.map((box) => ({
     model: useLoader(TextureLoader, box.texturePath),
-    position: {
-      x: box.positionX,
-      y: box.positionY,
-    },
+    position: box.position,
   }));
   const [currentTexture, setCurrentTexture] = useState(textures[0]);
   const [isPending, startTransition] = useTransition();
@@ -62,7 +59,7 @@ const DragAndDropAnime = () => {
       <Canvas camera={{ position: [0, 0, 120], fov: 70 }}>
         <Suspense fallback={null}>
           {textures.map((texture, index) => (
-            <ImagePlane key={index} texture={texture.model} position={texture.position} />
+            <ImagePlane key={index} texture={texture.model} position={texture.position} position={texture.position} />
           ))}
 
           {/* Lights Component */}
