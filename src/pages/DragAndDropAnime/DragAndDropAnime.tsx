@@ -1,14 +1,7 @@
 import { Suspense, useState } from 'react';
-import { Canvas, useLoader } from '@react-three/fiber';
-import { TextureLoader } from 'three';
-import BoxAnimations from './hooks/BoxAnimations';
-import { Box, ImagePlaneProps } from './utils/types';
-import { boxes } from './utils/data';
-
-const Model = ({ path }: { path: string }) => {
-  const texture = useLoader(TextureLoader, path);
-  return <meshStandardMaterial map={texture} transparent />;
-};
+import { Canvas } from '@react-three/fiber';
+import ProductInitialStage from './components/ProductInitialStage';
+import ProductDraggableStage from './components/ProductDraggableStage';
 
 const Lights = () => {
   return (
@@ -19,56 +12,33 @@ const Lights = () => {
   );
 };
 
-const ImagePlane = ({ texturePath, shadowTexture, position, index, hovered, animation }: ImagePlaneProps) => {
-  const ref = BoxAnimations({ texturePath, position, index, hovered, animation });
-
-  return (
-    <group ref={ref} position={position}>
-      <mesh position={[0, -5 * (index + 1), 0]}>
-        <planeGeometry args={[80, 70]} />
-        <Model path={shadowTexture} />
-      </mesh>
-      <mesh>
-        <planeGeometry args={[60, 50]} />
-        <Model path={texturePath} />
-      </mesh>
-    </group>
-  );
-};
-
-const GroupMesh = ({ boxes }: { boxes: Box[] }) => {
-  const [hovered, setHovered] = useState(false);
-  const handleOnHover = () => {
-    setHovered((prev) => !prev);
-  };
-  return (
-    <>
-      <Lights />
-      <group onPointerOver={handleOnHover} onPointerOut={handleOnHover}>
-        {boxes.map((box, index) => (
-          <ImagePlane
-            key={index}
-            texturePath={box.texturePath}
-            shadowTexture={box.shadowTexture}
-            position={box.position}
-            index={index}
-            hovered={hovered}
-            animation={box.animation}
-          />
-        ))}
-      </group>
-    </>
-  );
-};
-
 const DragAndDropAnime = () => {
+  const [stage, setStage] = useState('initial');
   return (
-    <div className="h-100vh w-full">
+    <div className="h-100vh w-full dnd-container transition-colors duration-500">
       <Canvas shadows camera={{ position: [0, 0, 120], fov: 70 }}>
         <Suspense fallback={null}>
-          <GroupMesh boxes={boxes} />
+          <Lights />
+
+          <group renderOrder={0}>
+            <ProductInitialStage stage={stage} />
+          </group>
+          {stage === 'drag' && (
+            <group renderOrder={1}>
+              <ProductDraggableStage />
+            </group>
+          )}
         </Suspense>
       </Canvas>
+
+      {stage === 'initial' && (
+        <button
+          onClick={() => setStage('drag')}
+          className="py-14 px-40 absolute left-50-percent -translate-x-50-percent bottom-10-percent bg-black text-white text-14 font-500 leading-18"
+        >
+          See All Product
+        </button>
+      )}
     </div>
   );
 };
