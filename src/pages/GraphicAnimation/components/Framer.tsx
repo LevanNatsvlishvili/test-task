@@ -4,7 +4,7 @@ import InlineSVG from 'react-inlinesvg';
 interface FramerProps {
   frames: string[];
   onClick: () => void;
-  size: string;
+  size?: string;
 }
 
 const Framer = ({ frames, onClick, size }: FramerProps) => {
