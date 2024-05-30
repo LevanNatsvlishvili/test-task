@@ -42,7 +42,6 @@ const ImagePlane = ({ texturePath, shadowTexture, position, isInView, bg }: Drag
     if (isInView) {
       container?.classList.remove(container?.classList[4]);
       container?.classList.add(bg);
-      // console.log();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isInView]);
@@ -70,7 +69,6 @@ const ProductDraggableStage = () => {
     position: [0, 0, 0],
     config: { mass: 1, tension: 100 },
   }));
-  console.log('1');
 
   useFrame(() => {
     frameCount.current++;
