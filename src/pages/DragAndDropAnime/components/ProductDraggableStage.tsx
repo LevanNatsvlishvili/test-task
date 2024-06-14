@@ -24,7 +24,7 @@ const ImagePlane = ({ texturePath, shadowTexture, position, isInView, bg }: Drag
         x: isInView ? 1.3 : 1,
         y: isInView ? 1.3 : 1,
         z: isInView ? 1.3 : 1,
-        duration: isMounted ? 1 : 2,
+        duration: isMounted ? 1 : 2, // 2 second duration need for initial scale when box is introduced
         ease: 'power3.out',
       });
 

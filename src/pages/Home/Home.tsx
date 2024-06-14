@@ -27,22 +27,22 @@ const Home = () => {
         <div className="bg-darkBlue px-60 py-24 relative">
           <DirectionBox href={paths.adminPanel} heading="Admin Panel Manage Category Page" />
 
-          <div className="absolute bottom-0 right-0 ">
-            <img src="images/home/admin-panel.png" className="max-w-536" />
+          <div className="absolute bottom-0 right-0 h-full pt-40">
+            <img src="images/home/admin-panel.png" className="max-w-536 h-full" />
           </div>
         </div>
         <div className="bg-skyBlue px-60 py-24 relative">
           <DirectionBox href={paths.dragAndDropAnimation} heading="Hover animation With drag and drop" />
 
-          <div className="absolute bottom-0 right-0 ">
-            <img src="images/home/dnd-boxes.png" className="max-w-536" />
+          <div className="absolute bottom-0 right-0 h-full">
+            <img src="images/home/dnd-boxes.png" className="max-w-536 h-full" />
           </div>
         </div>
         <div className="bg-darkBlue px-60 py-24 relative">
           <DirectionBox href={paths.graphicAnimation} heading="Graphic animation" />
 
-          <div className="absolute bottom-0 right-0 ">
-            <img src="images/home/graphic.png" className="max-w-536" />
+          <div className="absolute bottom-0 right-0 h-full">
+            <img src="images/home/graphic.png" className="max-w-536 h-full" />
           </div>
         </div>
       </div>

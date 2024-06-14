@@ -34,6 +34,7 @@ const GroupMesh = ({ stage }: GroupMeshProps) => {
   };
   const ref = useRef<Group>(null);
 
+  // Remove group from view when stage is 'drag'
   useEffect(() => {
     if (ref.current) {
       const positionAnim = gsap.to(ref.current.position, {
