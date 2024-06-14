@@ -5,10 +5,11 @@ interface ButtonProps {
   text: string;
 }
 
-const CustomButton = ({ text }: ButtonProps) => {
+const CustomButton = ({ text, ...rest }: ButtonProps) => {
   return (
     <Button
       type="primary"
+      {...rest}
       icon={<RightOutlined />}
       iconPosition="end"
       className="w-278 h-60 flex items-center justify-between rounded-16 px-30 py-10 text-white text-18 leading-22 font-600"

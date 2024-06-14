@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import Sidebar from './components/Sidebar';
+import Sidebar from './components/Sidebar/';
 import clsx from 'clsx';
 import { gsap } from 'gsap';
 import InlineSVG from 'react-inlinesvg';
@@ -94,20 +94,18 @@ const AdminPanel = () => {
   return (
     <div>
       <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} flip={() => handleFlip()}>
-        <main className="p-6">
-          <h1 className="font-600 text-24 leading-32 text-lightBlack">Manage Category Page</h1>
-          <p className="mt-8 text-14 leading-22 tracking-[0.4$] text-gray">
-            Is simply dummy text of the printing and typesetting industry.
-          </p>
+        <h1 className="font-600 text-24 leading-32 text-lightBlack">Manage Category Page</h1>
+        <p className="mt-8 text-14 leading-22 tracking-[0.4$] text-gray">
+          Is simply dummy text of the printing and typesetting industry.
+        </p>
 
-          <div ref={gridRef} className={clsx('mt-40 grid gap-16 transition-all duration-300 grid-cols-3')}>
-            {[...Array(6)].map((_, i) => (
-              <div key={i} className="col-span-1" ref={addToBoxesRef}>
-                <ArticleCard />
-              </div>
-            ))}
-          </div>
-        </main>
+        <div ref={gridRef} className={clsx('mt-40 grid gap-16 transition-all duration-300 grid-cols-3')}>
+          {[...Array(6)].map((_, i) => (
+            <div key={i} className="col-span-1" ref={addToBoxesRef}>
+              <ArticleCard />
+            </div>
+          ))}
+        </div>
       </Sidebar>
     </div>
   );
@@ -115,7 +113,7 @@ const AdminPanel = () => {
 
 const ArticleCard = () => {
   return (
-    <div className="py-40 px-24 border border-[#F0F0F0] rounded-2">
+    <div className="py-40 px-24 border border-[#F0F0F0] rounded-2 bg-white">
       <div className="flex items-center">
         <InlineSVG src={ArrowDown} />
         <InlineSVG src={Folder} className="ml-24" />

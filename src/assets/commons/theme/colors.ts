@@ -10,6 +10,7 @@ const colors = {
   lightBlack: '#151824',
   black: '#000',
   red: 'red',
+  transparent: 'transparent',
 };
 
 module.exports = colors;
