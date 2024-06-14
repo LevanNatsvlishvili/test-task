@@ -1,53 +1,37 @@
+import { Layout } from 'antd';
+import InlineSVG from 'react-inlinesvg';
 import { Customization, CustomizationActive } from '@/assets/icons/Customization';
 import Dashboard from '@/assets/icons/Dashboard';
 import Gallery from '@/assets/icons/Gallery';
 import { Info } from '@/assets/icons/Info';
 import { LogoText, Logo } from '@/assets/icons/Logo';
 import { Profile, ProfileActive } from '@/assets/icons/Profile';
-import { Search } from '@/assets/icons/Search';
 import Settings from '@/assets/icons/Settings';
 import { Store, StoreActive } from '@/assets/icons/Store';
 import clsx from 'clsx';
-import { useState } from 'react';
-import InlineSVG from 'react-inlinesvg';
-
-interface CurrentTab {
-  icon: string;
-  title: string;
-  children?: string[];
-}
+const { Sider } = Layout;
+import { CurrentTab } from '../Layout';
 
 interface SidebarProps {
-  children: React.ReactNode;
+  currentTab: CurrentTab | null;
+  handleTabClick: (tab: CurrentTab) => void;
   isSidebarOpen: boolean;
-  setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  flip: () => void;
 }
 
-const Sidebar = ({ children, isSidebarOpen, setIsSidebarOpen, flip }: SidebarProps) => {
-  const [currentTab, setCurrentTab] = useState<CurrentTab | null>(null);
-
-  const handleTabClick = (tab: CurrentTab) => {
-    setCurrentTab(tab);
-
-    if (!isSidebarOpen) {
-      setIsSidebarOpen((p) => !p);
-      flip();
-      return;
-    }
-    if (isSidebarOpen && tab === currentTab) {
-      setIsSidebarOpen((p) => !p);
-      flip();
-      setCurrentTab(null);
-    }
-  };
-
+const Sidebar = ({ currentTab, isSidebarOpen, handleTabClick }: SidebarProps) => {
   return (
-    <div className="h-100vh flex bg-white">
+    <Sider
+      style={{ background: 'white', maxWidth: '280px', width: '100%' }}
+      collapsedWidth={280}
+      width={72}
+      className="bg-white h-100vh"
+      trigger={null}
+      collapsible
+      collapsed={isSidebarOpen}
+    >
       <nav
         className={clsx(
-          'w-fill h-full border-r border-r-1 border-sidebarBorder flex overflow-hidden transition-all duration-300 ease-in-out',
-          isSidebarOpen ? `max-w-286` : `max-w-72`
+          'w-fill h-full border-r border-r-1 border-sidebarBorder flex overflow-hidden transition-all duration-300 ease-in-out'
         )}
       >
         <div className="h-full w-72 border-r border-r-1 border-sidebarBorder relative">
@@ -57,18 +41,25 @@ const Sidebar = ({ children, isSidebarOpen, setIsSidebarOpen, flip }: SidebarPro
           <div className="py-24 space-y-24">
             {NavTabs.map((link, index) => (
               <div className="group px-24" onClick={() => handleTabClick(link)} key={index}>
-                <InlineSVG className={link.iconActive ? 'group-hover:hidden block' : ''} src={link.icon} />
-                {link.iconActive && <InlineSVG className="hidden group-hover:block" src={link?.iconActive} />}
+                {currentTab !== link && (
+                  <InlineSVG className={link.iconActive ? 'group-hover:hidden block' : ''} src={link.icon} />
+                )}
+                {link.iconActive && (
+                  <InlineSVG
+                    className={clsx(currentTab !== link && 'hidden group-hover:block')}
+                    src={link?.iconActive}
+                  />
+                )}
               </div>
             ))}
           </div>
 
           <div className="absolute left-0 bottom-0 w-full">
-            <div className="w-full p-24 mb-24">
+            <div className="w-full py-10 4xl:py-24 px-24 4xl:mb-24">
               <InlineSVG src={Info} />
             </div>
 
-            <div className="w-full p-24 ">
+            <div className="w-full py-14 px-24 4xl:py-24">
               <p className="text-14 leading-20 tracking-[0.2px] font-600 text-[#C7C8CA]">1.01</p>
             </div>
           </div>
@@ -94,36 +85,17 @@ const Sidebar = ({ children, isSidebarOpen, setIsSidebarOpen, flip }: SidebarPro
           </div>
 
           <div className="absolute left-0 bottom-0 w-full">
-            <div className="w-full p-24 mb-24">
+            <div className="w-full py-10 4xl:py-24 px-24 4xl:mb-24">
               <p className="text-14 leading-20 tracking-[0.2px] font-600 text-rukh">Help Started</p>
             </div>
 
-            <div className="w-full p-24 border-t border-sidebarBorder ">
+            <div className="w-full py-14 px-24 4xl:py-24 border-t border-sidebarBorder ">
               <p className="text-14 leading-20 tracking-[0.2px] font-600 text-rukh">Version . 1.00.0.2</p>
             </div>
           </div>
         </div>
       </nav>
-      <div className="w-full ">
-        <div className="h-80 w-full flex items-center border-b border-sidebarBorder px-24">
-          <div className="w-fit flex flex-grow items-center">
-            <InlineSVG src={Search} />
-            <input
-              className="w-full ml-16 placeholder-rukh text-rukh text-14 leading-18 tracking-[0.2px]"
-              placeholder="Search for the desired information"
-            />
-          </div>
-          <div className="ml-auto text-right flex items-center">
-            <div>
-              <p className="text-[#130F26] text-14 font-500 leading-21">Alex Kognitiv</p>
-              <p className="text-[#878EA2] text-14 font-500 leading-21">Alexkognitiv@gmail.com</p>
-            </div>
-            <img className="ml-8 " src="/images/home/profile-picture.png" />
-          </div>
-        </div>
-        <main className="p-24">{children}</main>
-      </div>
-    </div>
+    </Sider>
   );
 };
 
@@ -132,13 +104,14 @@ export default Sidebar;
 const NavTabs = [
   {
     icon: Dashboard,
+    iconActive: Dashboard,
     title: 'Dashboard',
   },
   {
     icon: Customization,
     iconActive: CustomizationActive,
-    title: 'App Customization',
-    children: ['App Builder', 'App Customizer', 'A/B Testing'],
+    title: 'Sidebar Customization',
+    children: ['Sidebar Builder', 'Sidebar Customizer', 'A/B Testing'],
   },
   {
     icon: Store,
@@ -154,10 +127,12 @@ const NavTabs = [
   },
   {
     icon: Gallery,
+    iconActive: Gallery,
     title: 'Gallery Management',
   },
   {
     icon: Settings,
+    iconActive: Settings,
     title: 'Settings',
   },
 ];
